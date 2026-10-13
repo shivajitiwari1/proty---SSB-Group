@@ -1,0 +1,482 @@
+/* ==========================================================================
+   SSB Group – brand overrides & home page sections
+   Loaded after styles.css
+   ========================================================================== */
+
+:root {
+  --Primary: #9c7442;              /* SSB gold (darkened for white-text contrast) */
+  --Sub-primary-1: #f7f1e8;
+  --Sub-primary-2: rgba(156, 116, 66, 0.15);
+  --Sub-primary-3: rgba(156, 116, 66, 0.1);
+  --shadown: rgba(156, 116, 66, 0.14);
+  --ssb-gold: #bc9662;
+  --ssb-gold-soft: #e7d3b3;
+  --ssb-navy: #141a5c;
+  --ssb-teal: #053b42;
+}
+
+/* ---------- Logo ---------- */
+.header .header-logo img,
+.mobile-nav-wrap .offcanvas-title img {
+  height: 52px;
+  width: auto;
+  max-width: none;
+}
+#footer .footer-logo img {
+  height: 64px;
+  width: auto;
+}
+.ssb-loader-logo {
+  width: 70px;
+  height: auto;
+}
+
+/* ---------- Hero ---------- */
+.ssb-eyebrow {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--Primary);
+  margin-bottom: 14px;
+}
+.ssb-hero-lead {
+  max-width: 620px;
+  margin-top: 18px;
+}
+.ssb-hero-info .number {
+  font-size: 40px !important;
+  line-height: 1.1 !important;
+}
+.ssb-hero-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--Sub-primary-2);
+  color: var(--Primary);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.tf-slider.style-3 .hero-thumbs-2 .property-info .content p {
+  margin-bottom: 12px;
+}
+
+/* ---------- Stats strip ---------- */
+.ssb-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--Line);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--White);
+}
+.ssb-stats .item {
+  padding: 34px 20px;
+  text-align: center;
+  border-right: 1px solid var(--Line);
+}
+.ssb-stats .item:last-child { border-right: 0; }
+.ssb-stats .value {
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--Primary);
+  font-variant-numeric: tabular-nums;
+}
+.ssb-stats .label {
+  margin-top: 8px;
+  color: var(--Text);
+}
+@media (max-width: 991px) {
+  .ssb-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ssb-stats .item { border-bottom: 1px solid var(--Line); }
+  .ssb-stats .item:nth-child(2n) { border-right: 0; }
+  .ssb-stats .item:last-child { grid-column: 1 / -1; border-bottom: 0; }
+  .ssb-stats .value { font-size: 38px; }
+}
+
+/* ---------- About list ---------- */
+.ssb-journey {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 40px;
+  padding: 0;
+  list-style: none;
+}
+.ssb-journey li {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--Line);
+  font-weight: 600;
+  color: var(--Heading);
+}
+.ssb-journey li.sep {
+  border: 0;
+  padding: 0;
+  color: var(--Primary);
+}
+
+/* ---------- Gap + approach ---------- */
+.ssb-approach {
+  background: var(--Sub-primary-1);
+  border-radius: 24px;
+  margin: 0 16px;
+  padding: 100px 0;
+}
+.ssb-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.ssb-card {
+  background: var(--White);
+  border-radius: 20px;
+  padding: 36px 32px;
+  height: 100%;
+  box-shadow: 0 10px 30px rgba(20, 26, 92, 0.05);
+}
+.ssb-card .num {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ssb-navy);
+  color: #ffd25a;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 22px;
+}
+.ssb-card h4 { margin-bottom: 12px; }
+.ssb-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 28px;
+  counter-reset: step;
+}
+.ssb-step {
+  position: relative;
+  padding: 28px 24px 30px;
+  border-radius: 20px;
+  background: var(--White);
+  border-top: 4px solid var(--Primary);
+}
+.ssb-step .step-no {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--Primary);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ssb-step h5 { margin-bottom: 10px; }
+.ssb-tagline {
+  margin-top: 40px;
+  padding: 22px 28px;
+  border-radius: 16px;
+  background: var(--ssb-navy);
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+@media (max-width: 991px) {
+  .ssb-card-grid { grid-template-columns: 1fr; }
+  .ssb-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ssb-approach { padding: 64px 0; }
+}
+@media (max-width: 575px) {
+  .ssb-steps { grid-template-columns: 1fr; }
+}
+
+/* ---------- Pillars (box-help) ---------- */
+.ssb-pillar-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ssb-pillar-list li {
+  color: #fff;
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.7;
+}
+.ssb-pillar-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ssb-gold-soft);
+}
+.section-help .box-help .img-style img {
+  aspect-ratio: 592 / 366;
+  object-fit: cover;
+}
+
+/* ---------- Ongoing projects (stacked cards) ---------- */
+.ssb-project-desc {
+  margin-top: 14px;
+  max-width: 780px;
+}
+.section-best-property .box-house.style-5 .image-wrap img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+}
+.ssb-model {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--Sub-primary-2);
+  color: var(--Primary);
+  font-weight: 600;
+}
+
+/* ---------- Milestones grid ---------- */
+.ssb-milestone .image-wrap img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  width: 100%;
+}
+.ssb-milestone .content .title { margin-bottom: 4px; }
+
+/* ---------- Leadership ---------- */
+.ssb-leader .image-wrap img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+  width: 100%;
+}
+.ssb-leader .content .author p.role {
+  color: var(--Primary);
+  font-weight: 600;
+}
+.ssb-leader .content .bio {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ---------- Capabilities & turnover ---------- */
+.ssb-cap {
+  background: var(--White);
+  border-radius: 20px;
+  padding: 30px 28px;
+  margin-bottom: 24px;
+  border: 1px solid var(--Line);
+}
+.ssb-cap .icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--Sub-primary-2);
+  color: var(--Primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.ssb-cap h5 { margin-bottom: 8px; }
+.ssb-turnover {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ssb-turnover li {
+  display: grid;
+  grid-template-columns: 82px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+.ssb-turnover .fy { color: var(--Text); font-size: 14px; }
+.ssb-turnover .bar {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--Line);
+  overflow: hidden;
+}
+.ssb-turnover .bar span {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: var(--Primary);
+}
+.ssb-turnover li.projected .bar span {
+  background: repeating-linear-gradient(45deg, var(--ssb-gold) 0 6px, var(--ssb-gold-soft) 6px 12px);
+}
+.ssb-turnover .amt {
+  font-weight: 600;
+  color: var(--Heading);
+  font-variant-numeric: tabular-nums;
+  min-width: 92px;
+  text-align: right;
+}
+.ssb-turnover-total {
+  margin-top: 26px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: var(--ssb-teal);
+  color: #fff;
+}
+.ssb-turnover-total .big {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+}
+.ssb-note {
+  font-size: 13px;
+  color: var(--Note-2);
+  margin-top: 10px;
+}
+
+/* ---------- Mission / vision / safety ---------- */
+.ssb-values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.ssb-value {
+  border-radius: 20px;
+  padding: 36px 32px;
+  background: var(--Sub-primary-1);
+  height: 100%;
+}
+.ssb-value .kicker {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--Primary);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.ssb-value blockquote {
+  margin: 18px 0 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--Primary);
+  font-style: italic;
+  color: var(--Heading);
+}
+.ssb-partner {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--ssb-teal);
+}
+.ssb-partner .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 260px;
+}
+.ssb-partner .text {
+  padding: 44px 44px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.ssb-partner .text h3 { color: #fff; margin-bottom: 14px; }
+.ssb-partner .parties {
+  color: var(--ssb-gold-soft);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+@media (max-width: 991px) {
+  .ssb-values { grid-template-columns: 1fr; }
+  .ssb-partner { grid-template-columns: 1fr; }
+  .ssb-partner .text { padding: 32px 24px; }
+}
+
+/* ---------- Contact ---------- */
+.ssb-contact-intro {
+  color: #fff;
+  max-width: 460px;
+}
+.ssb-contact-intro h2 { color: #fff; margin-bottom: 16px; }
+.ssb-contact-intro p { color: rgba(255, 255, 255, 0.9); }
+@media (max-width: 767px) {
+  .ssb-contact-intro { margin-bottom: 30px; }
+}
+
+/* ---------- Footer ---------- */
+.ssb-footer-about {
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 300px;
+}
+
+/* ---------- Fixes after visual check ---------- */
+.section-best-property .heading-title {
+  font-size: clamp(30px, 6.6vw, 104px) !important;
+  line-height: 1.05 !important;
+  margin-bottom: -0.12em;
+}
+.ssb-milestone .tag-catefories {
+  width: auto !important;
+  padding: 0 14px;
+  white-space: nowrap;
+}
+#about .text-with-img.style-3 .img-style img {
+  height: 640px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+@media (max-width: 991px) {
+  #about .text-with-img.style-3 .img-style img { height: 380px; }
+}
+#footer .contact-item h6,
+#footer .contact-item h6 a { color: #fff; }
+.tf-slider.style-3 > .left,
+.tf-slider.style-3 > .right { min-width: 0; }
+.page-title.home10 { overflow-x: clip; }
+
+/* Premium properties cards */
+.ssb-milestone .image-wrap .price {
+  font-size: 18px;
+}
+.ssb-avatar {
+  background: #fff;
+  border: 1px solid var(--Line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ssb-avatar img {
+  width: 80% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+}
+.ssb-milestone .image-wrap .price {
+  color: #fff !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+.box-house.style-list.v2 .tag-catefories {
+  width: auto !important;
+  padding: 0 14px;
+  white-space: nowrap;
+}
+.box-house.style-list.v2 .tag-catefories {
+  display: inline-flex !important;
+  align-self: flex-start;
+  max-width: max-content;
+}
+
+#premium { padding-top: 100px; }
+@media (max-width: 767px) { #premium { padding-top: 64px; } }
+
+/* keep anchored sections clear of the sticky header */
+#contact, #about, #premium, #projects, #leadership, #approach, #delivered, #capabilities, #values, #partnership { scroll-margin-top: 110px; }
