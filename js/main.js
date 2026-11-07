@@ -22,6 +22,16 @@
 (function ($) {
     ("use strict");
 
+    // Safety net: reveal content even on slow networks where DOM-ready never fires.
+    // Runs at script-parse time using vanilla JS (no jQuery/DOM-ready dependency).
+    setTimeout(function () {
+        var el = document.getElementById("loading");
+        if (el) {
+            el.style.display = "none";
+            if (el.parentNode) el.parentNode.removeChild(el);
+        }
+    }, 10000);
+
     /* headerFixed
   -------------------------------------------------------------------------------------*/
     var headerFixed = function () {
@@ -862,6 +872,16 @@
             $(this).remove();
         });
     };
+
+    // Safety net: always reveal content even on slow networks where
+    // DOM-ready may be delayed. Hide loader after 10 seconds max.
+    setTimeout(function () {
+        if ($("#loading").length) {
+            $("#loading").fadeOut("fast", function () {
+                $(this).remove();
+            });
+        }
+    }, 10000);
 
     // Dom Ready
     $(function () {

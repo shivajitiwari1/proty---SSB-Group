@@ -11820,6 +11820,7 @@ tr {
   margin-right: auto;
   padding-left: 15px;
   padding-right: 15px;
+  overflow-x: hidden;
 }
 .page-title.home10::after {
   display: none;
