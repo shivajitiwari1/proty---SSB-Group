@@ -480,3 +480,81 @@
 
 /* keep anchored sections clear of the sticky header */
 #contact, #about, #premium, #projects, #leadership, #approach, #delivered, #capabilities, #values, #partnership { scroll-margin-top: 110px; }
+
+/* ---------- Forms: email submission feedback ---------- */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.form-status {
+  display: none;
+  margin-top: 18px;
+  padding: 14px 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.form-status.is-visible { display: block; }
+.form-status.is-success {
+  color: #1e6b3a;
+  background: #e9f7ef;
+  border-color: #bfe3cc;
+}
+.form-status.is-error {
+  color: #b3261e;
+  background: #fdecea;
+  border-color: #f5c6c0;
+}
+
+button.is-loading {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+#error-message.sib-form-message-panel,
+#success-message.sib-form-message-panel {
+  border-radius: 8px;
+}
+#error-message {
+  color: #b3261e;
+  background: #fdecea;
+  border-color: #f5c6c0;
+}
+#success-message {
+  color: #1e6b3a;
+  background: #e9f7ef;
+  border-color: #bfe3cc;
+}
+#error-message.sib-form-message-panel--active,
+#success-message.sib-form-message-panel--active {
+  display: block;
+}
+
+.sib-form .entry__error.is-visible {
+  display: block;
+}
+
+/* ---------- Get in touch: inline field validation ---------- */
+.form-get-in-touch .field-error {
+  display: none;
+  margin-top: 6px;
+  padding-left: 4px;
+  color: #b3261e;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.form-get-in-touch .field-error.is-visible {
+  display: block;
+}
+.form-get-in-touch .form-control.is-invalid,
+.form-get-in-touch textarea.is-invalid {
+  border-color: #b3261e !important;
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.08) !important;
+}

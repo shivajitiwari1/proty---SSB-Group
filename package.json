@@ -1,0 +1,13 @@
+{
+  "name": "ssb-group-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SSB Group website with Vercel serverless email endpoints",
+  "scripts": {
+    "dev": "vercel dev",
+    "test:email": "node --env-file=.env scripts/test-email.js"
+  },
+  "dependencies": {
+    "nodemailer": "^10.3.1"
+  }
+}

@@ -1,0 +1,6 @@
+# Never upload local secrets or dependencies to Vercel.
+.env
+.env.local
+.env.*.local
+node_modules
+.git

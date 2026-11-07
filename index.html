@@ -1523,7 +1523,8 @@
                     <div class="tf-container">
                         <div class="row justify-content-end">
                             <div class="col-md-6">
-                                <form class="form-get-in-touch " action="mailto:info@ssbgroups.in?subject=Website%20enquiry" method="post" enctype="text/plain">
+                                <form class="form-get-in-touch" id="contact-form" action="mailto:info@ssbgroups.in?subject=Website%20enquiry" method="post" enctype="text/plain">
+                                    <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
                                     <h2 class="text-color-heading title-form fw-5 mb-0 ">
                                         Get in touch
                                     </h2>
@@ -1535,23 +1536,27 @@
                                         <fieldset>
                                             <label class=" text-1 fw-6 mb-12" for="name3">Name</label>
                                             <input type="text" class="form-control" placeholder="Your name" name="name"
-                                                id="name3" required>
+                                                id="name3" autocomplete="name" maxlength="100" aria-describedby="name3-error" required>
+                                            <div class="field-error" id="name3-error" aria-live="polite"></div>
                                         </fieldset>
                                         <fieldset>
                                             <label class=" text-1 fw-6 mb-12" for="email3">Email</label>
                                             <input type="email" class="form-control" placeholder="Email"
-                                                name="email" id="email3" required>
+                                                name="email" id="email3" autocomplete="email" maxlength="254" aria-describedby="email3-error" required>
+                                            <div class="field-error" id="email3-error" aria-live="polite"></div>
                                         </fieldset>
                                     </div>
                                     <fieldset class="phone">
                                         <label class=" text-1 fw-6 mb-12" for="phone">Phone number</label>
-                                        <input type="text" class="form-control " placeholder="Your phone number"
-                                            name="phone" id="phone" required>
+                                        <input type="tel" class="form-control " placeholder="Your phone number"
+                                            name="phone" id="phone" autocomplete="tel" inputmode="tel" maxlength="40" aria-describedby="phone-error" required>
+                                        <div class="field-error" id="phone-error" aria-live="polite"></div>
                                     </fieldset>
                                     <fieldset>
                                         <label class=" text-1 fw-6 mb-12" for="message3">Message</label>
                                         <textarea name="message" cols="30" rows="10" placeholder="Your message"
-                                            id="message3" required></textarea>
+                                            id="message3" maxlength="5000" aria-describedby="message3-error" required></textarea>
+                                        <div class="field-error" id="message3-error" aria-live="polite"></div>
                                     </fieldset>
                                     <div class="wrap-btn">
                                         <button type="submit" class="tf-btn bg-color-primary pd-26 btn-border rounded-cycle">
@@ -1559,6 +1564,7 @@
                                             <i class="icon-arrow-up-right"></i>
                                         </button>
                                     </div>
+                                    <div class="form-status" id="contact-form-status" role="status" aria-live="polite"></div>
                                 </form>
                             </div>
                         </div>
@@ -2712,7 +2718,7 @@
                                     <h5 class="title lh-30 mb-19">Newsletter</h5>
                                     <div class="sib-form">
                                         <div id="sib-form-container" class="sib-form-container">
-                                            <div id="error-message" class="sib-form-message-panel">
+                                            <div id="error-message" class="sib-form-message-panel" role="alert" aria-live="assertive">
                                                 <div
                                                     class="sib-form-message-panel__text sib-form-message-panel__text--center">
                                                     <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
@@ -2724,7 +2730,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div id="success-message" class="sib-form-message-panel">
+                                            <div id="success-message" class="sib-form-message-panel" role="status" aria-live="polite">
                                                 <div
                                                     class="sib-form-message-panel__text sib-form-message-panel__text--center">
                                                     <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
@@ -2741,6 +2747,7 @@
                                                 <form id="sib-form" method="POST"
                                                     action="mailto:info@ssbgroups.in?subject=Newsletter%20subscription" enctype="text/plain"
                                                     data-type="subscription">
+                                                    <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
                                                     <div class="sib-form-block ">
                                                         <div class="sib-text-form-block">
                                                             <p class="text-1">Sign up to receive the latest SSB project updates</p>
@@ -2750,8 +2757,8 @@
                                                         <div class="form__entry entry_block">
                                                             <div class="form__label-row mb-10">
                                                                 <fieldset class="entry__field">
-                                                                    <input class="input input-nl" type="text" id="EMAIL"
-                                                                        name="EMAIL" autocomplete="off"
+                                                                    <input class="input input-nl" type="email" id="EMAIL"
+                                                                        name="EMAIL" autocomplete="email"
                                                                         placeholder="Your email address"
                                                                         data-required="true" required />
                                                                 </fieldset>
@@ -2787,7 +2794,7 @@
                                                                     </label>
                                                                 </div>
                                                             </div>
-                                                            <label class="entry__error entry__error--primary">
+                                                            <label class="entry__error entry__error--primary" id="optin-error">
                                                             </label>
                                                         </div>
                                                     </div>
@@ -2887,6 +2894,7 @@
     <script src="js/swiper.js"></script>
     <script src="js/SmoothScroll.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/forms.js"></script>
     <!-- /Javascript -->
 
 </body>
