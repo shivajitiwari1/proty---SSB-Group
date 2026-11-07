@@ -183,7 +183,7 @@
                 setStatus(
                     status,
                     "success",
-                    "Thank you — your message has been sent. Our team will get back to you shortly."
+                    "Thank you — your message has been sent. A confirmation email is on its way to your inbox, and our team will get back to you shortly."
                 );
             } catch (error) {
                 setStatus(

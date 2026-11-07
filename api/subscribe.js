@@ -188,7 +188,7 @@ module.exports = async function handler(req, res) {
   try {
     const info = await sendMail({
       to: email,
-      subject: "Welcome to SSB Group updates",
+      subject: "Your SSB Group subscription is confirmed",
       text: welcomeText,
       html: welcomeHtml,
       replyTo: mailTo,

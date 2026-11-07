@@ -1,6 +1,7 @@
 "use strict";
 
 const {
+  DEFAULT_TO,
   clean,
   cleanMultiline,
   emailLayout,
@@ -95,6 +96,7 @@ module.exports = async function handler(req, res) {
   }
 
   const submittedAt = formatDateTime();
+  const mailTo = process.env.MAIL_TO || DEFAULT_TO;
   const subject = `New website enquiry from ${name}`;
   const replySubject = encodeURIComponent(`Re: ${subject}`);
   const mailtoHref = `mailto:${email}?subject=${replySubject}`;
@@ -148,6 +150,42 @@ module.exports = async function handler(req, res) {
     `,
   });
 
+  const confirmationText = [
+    `Hello ${name},`,
+    "",
+    "Thank you for contacting SSB Group. We have received your message and our team will get back to you shortly.",
+    "",
+    "Your message:",
+    message,
+    "",
+    `Submitted: ${submittedAt}`,
+    "",
+    "If you need to reach us sooner, call (+91) 99534 46162 or simply reply to this email.",
+    "",
+    "Warm regards,",
+    "SSB Group",
+    "B-125, Sector 67, Noida, Uttar Pradesh 201306",
+    "",
+    "This is an automatic confirmation. Please reply to this email if you would like to add anything.",
+  ].join("\n");
+
+  const confirmationHtml = emailLayout({
+    heading: "Thank you for getting in touch",
+    preheader: "We've received your message and will get back to you shortly.",
+    bodyHtml: `
+      <p style="margin:0 0 16px;">Hello ${escapeHtml(name)},</p>
+      <p style="margin:0 0 16px;">Thank you for contacting <strong>SSB Group</strong>. We have received your message and our team will get back to you shortly.</p>
+      <div style="margin:24px 0;padding:18px 20px;background:#faf8f4;border-left:3px solid #9c7442;">
+        <div style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8176;padding-bottom:8px;">Your message</div>
+        <div style="white-space:pre-wrap;">${escapeHtml(message)}</div>
+        <div style="padding-top:12px;font-size:12px;color:#8a8176;">Submitted ${escapeHtml(submittedAt)}</div>
+      </div>
+      <p style="margin:0 0 16px;">If you need to reach us sooner, call <a href="tel:+919953446162" style="color:#9c7442;text-decoration:none;">(+91) 99534 46162</a> or simply reply to this email.</p>
+      <p style="margin:0;">Warm regards,<br><strong>SSB Group</strong><br>B-125, Sector 67, Noida, Uttar Pradesh 201306</p>
+      <p style="margin:24px 0 0;font-size:12px;color:#8a8176;">This is an automatic confirmation. Please reply to this email if you would like to add anything.</p>
+    `,
+  });
+
   try {
     const info = await sendMail({
       subject,
@@ -161,6 +199,29 @@ module.exports = async function handler(req, res) {
         `accepted=${JSON.stringify(info && info.accepted)} rejected=${JSON.stringify(info && info.rejected)} ` +
         `response=${info && info.response}`
     );
+
+    try {
+      const confirmationInfo = await sendMail({
+        to: email,
+        subject: "Thank you for contacting SSB Group",
+        text: confirmationText,
+        html: confirmationHtml,
+        replyTo: mailTo,
+      });
+
+      console.log(
+        `[contact] Confirmation sent. requestId=${requestId} ip=${ip} messageId=${confirmationInfo && confirmationInfo.messageId} ` +
+          `accepted=${JSON.stringify(confirmationInfo && confirmationInfo.accepted)} ` +
+          `rejected=${JSON.stringify(confirmationInfo && confirmationInfo.rejected)}`
+      );
+    } catch (confirmationError) {
+      // The team notification already succeeded; don't fail the request if
+      // only the visitor's confirmation email could not be delivered.
+      console.error(
+        `[contact] Confirmation email failed. requestId=${requestId} ip=${ip}`,
+        confirmationError
+      );
+    }
 
     return sendJson(res, 200, { ok: true });
   } catch (error) {
