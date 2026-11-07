@@ -30,9 +30,19 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 400, { ok: false, error: "Invalid request." });
   }
 
+  const requestId = req.headers["x-vercel-id"] || "-";
+  const ip = getClientIp(req);
+
   // Hidden honeypot field: real visitors never fill this in.
-  if (clean(body.website, 200)) {
+  if (clean(body.ssb_hp, 200)) {
+    console.warn(`[subscribe] Honeypot dropped a submission. requestId=${requestId} ip=${ip}`);
     return sendJson(res, 200, { ok: true });
+  }
+
+  // Older cached pages still send the previous `website` field. It is only
+  // logged, not treated as spam, because browser autofill can fill it.
+  if (clean(body.website, 200)) {
+    console.info(`[subscribe] Ignoring legacy website field. requestId=${requestId} ip=${ip}`);
   }
 
   const email = clean(body.email, 254).toLowerCase();
@@ -51,8 +61,6 @@ module.exports = async function handler(req, res) {
       error: "Please agree to the terms and conditions to subscribe.",
     });
   }
-
-  const ip = getClientIp(req);
 
   if (isRateLimited(`subscribe:ip:${ip}`, 5, 10 * 60 * 1000)) {
     return sendJson(res, 429, {
@@ -103,12 +111,18 @@ module.exports = async function handler(req, res) {
   });
 
   try {
-    await sendMail({
+    const info = await sendMail({
       subject: `New newsletter subscriber: ${email}`,
       text: internalText,
       html: internalHtml,
       replyTo: email,
     });
+
+    console.log(
+      `[subscribe] Notification sent. requestId=${requestId} ip=${ip} messageId=${info && info.messageId} ` +
+        `accepted=${JSON.stringify(info && info.accepted)} rejected=${JSON.stringify(info && info.rejected)} ` +
+        `response=${info && info.response}`
+    );
   } catch (error) {
     if (error && error.code === "SMTP_NOT_CONFIGURED") {
       console.error("[subscribe] SMTP_PASS is not configured.");
@@ -172,7 +186,7 @@ module.exports = async function handler(req, res) {
   });
 
   try {
-    await sendMail({
+    const info = await sendMail({
       to: email,
       subject: "Welcome to SSB Group updates",
       text: welcomeText,
@@ -182,6 +196,11 @@ module.exports = async function handler(req, res) {
         "List-Unsubscribe": `<mailto:${mailTo}?subject=Unsubscribe>`,
       },
     });
+
+    console.log(
+      `[subscribe] Welcome email sent. requestId=${requestId} ip=${ip} messageId=${info && info.messageId} ` +
+        `accepted=${JSON.stringify(info && info.accepted)} rejected=${JSON.stringify(info && info.rejected)}`
+    );
   } catch (error) {
     // The subscription was recorded successfully; don't fail the request if
     // only the visitor's welcome email could not be delivered.

@@ -126,7 +126,7 @@
         const status = document.getElementById("contact-form-status");
         const button = form.querySelector('button[type="submit"]');
         const fields = Array.from(form.querySelectorAll("input[name], textarea[name]")).filter(
-            (input) => input.name !== "website"
+            (input) => input.name !== "ssb_hp" && input.name !== "website"
         );
         const touched = new Set();
 
@@ -167,7 +167,7 @@
                 email: formData.get("email"),
                 phone: formData.get("phone"),
                 message: formData.get("message"),
-                website: formData.get("website"),
+                ssb_hp: formData.get("ssb_hp"),
             };
 
             setStatus(status, "", "");
@@ -247,7 +247,7 @@
                 await postJson("/api/subscribe", {
                     email: email,
                     optIn: Boolean(optInInput && optInInput.checked),
-                    website: formData.get("website"),
+                    ssb_hp: formData.get("ssb_hp"),
                 });
 
                 if (container) container.style.display = "none";

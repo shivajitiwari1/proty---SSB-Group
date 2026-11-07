@@ -26,9 +26,19 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 400, { ok: false, error: "Invalid request." });
   }
 
+  const requestId = req.headers["x-vercel-id"] || "-";
+  const ip = getClientIp(req);
+
   // Hidden honeypot field: real visitors never fill this in.
-  if (clean(body.website, 200)) {
+  if (clean(body.ssb_hp, 200)) {
+    console.warn(`[contact] Honeypot dropped a submission. requestId=${requestId} ip=${ip}`);
     return sendJson(res, 200, { ok: true });
+  }
+
+  // Older cached pages still send the previous `website` field. It is only
+  // logged, not treated as spam, because browser autofill can fill it.
+  if (clean(body.website, 200)) {
+    console.info(`[contact] Ignoring legacy website field. requestId=${requestId} ip=${ip}`);
   }
 
   const name = clean(body.name, 100);
@@ -76,8 +86,6 @@ module.exports = async function handler(req, res) {
       error: "Please add a short message so our team can help.",
     });
   }
-
-  const ip = getClientIp(req);
 
   if (isRateLimited(`contact:${ip}`, 5, 10 * 60 * 1000)) {
     return sendJson(res, 429, {
@@ -141,12 +149,18 @@ module.exports = async function handler(req, res) {
   });
 
   try {
-    await sendMail({
+    const info = await sendMail({
       subject,
       text,
       html,
       replyTo: email,
     });
+
+    console.log(
+      `[contact] Enquiry sent. requestId=${requestId} ip=${ip} messageId=${info && info.messageId} ` +
+        `accepted=${JSON.stringify(info && info.accepted)} rejected=${JSON.stringify(info && info.rejected)} ` +
+        `response=${info && info.response}`
+    );
 
     return sendJson(res, 200, { ok: true });
   } catch (error) {
